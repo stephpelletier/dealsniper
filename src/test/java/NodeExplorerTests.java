@@ -1,6 +1,9 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.Mockito.*;
 
 public class NodeExplorerTests {
@@ -16,14 +19,25 @@ public class NodeExplorerTests {
     }
 
     @Test
-    public void ShouldScrapeTheFirstNode(){
+    public void ShouldScrapeEveryNode(){
         // Arrange
-        Node node = new Node("Url");
+        Node baseNode = new Node("Url1");
+        Node firstNode = new Node("Url1");
+        Node secondNode = new Node("Url1");
+
+        List<Node> scrappedBaseNode = new ArrayList<Node>();
+        scrappedBaseNode.add(firstNode);
+        scrappedBaseNode.add(secondNode);
+
+        when(mockedScrapper.Scrape(baseNode)).thenReturn(scrappedBaseNode);
 
         // Act
-        nodeExplorer.Explore(node);
+        nodeExplorer.Explore(baseNode);
 
         // Assert
-        verify(mockedScrapper, times(1)).Scrape(node);
+        verify(mockedScrapper, times(1)).Scrape(baseNode);
+        verify(mockedScrapper, times(1)).Scrape(firstNode);
+        verify(mockedScrapper, times(1)).Scrape(secondNode);
+
     }
 }
