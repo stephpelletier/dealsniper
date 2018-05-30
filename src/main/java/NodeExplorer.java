@@ -16,7 +16,7 @@ public class NodeExplorer {
 
         while(!queue.isEmpty()){
             Node nextNodeToScrape = queue.remove();
-            
+
             List<Node> scrapedNode = scrapper.Scrape(nextNodeToScrape);
             for (Node node: scrapedNode) {
                 queue.add(node);
